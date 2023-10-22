@@ -69,7 +69,7 @@ jooq {
                         isTables = true
                     }
                     target.apply {
-                        packageName = "com.example.ktknowledgeTodo.infra.jooq"
+                        packageName = "com.example.bookshelf.infra.jooq"
                         directory = "$buildDir/generated/source/jooq/main"
                     }
                 }
