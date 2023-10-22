@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
     id("nu.studer.jooq") version "8.0" // これを追加
+    id("org.flywaydb.flyway") version "8.0.1" //これも追加
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
 }
@@ -25,6 +26,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // flyway
+    implementation("org.flywaydb:flyway-mysql")
 
     // jooq
     jooqGenerator("com.mysql:mysql-connector-j")
@@ -49,7 +53,7 @@ jooq {
         create("main") {
             jooqConfiguration.apply {
                 jdbc.apply {
-                    url = "jdbc:mysql://localhost:3306/library?enabledTLSProtocols=TLSv1.2"
+                    url = "jdbc:mysql://localhost:3326/library?enabledTLSProtocols=TLSv1.2"
                     user = "root"
                     password = "root"
                 }
@@ -72,4 +76,10 @@ jooq {
             }
         }
     }
+}
+
+flyway {
+    url = "jdbc:mysql://localhost:3326/library?enabledTLSProtocols=TLSv1.2"
+    user = "root"
+    password = "root"
 }
