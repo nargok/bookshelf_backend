@@ -20,6 +20,8 @@ repositories {
     mavenCentral()
 }
 
+extra["testcontainersVersion"] = "1.17.4"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -34,7 +36,21 @@ dependencies {
     jooqGenerator("com.mysql:mysql-connector-j")
     jooqGenerator("jakarta.xml.bind:jakarta.xml.bind-api:4.0.0")
 
+    // kotest
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    val kotest_version = "5.5.4"
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotest_version")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+
+    // testcontainers
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:mysql")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
+    }
 }
 
 tasks.withType<KotlinCompile> {
